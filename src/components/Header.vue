@@ -10,6 +10,7 @@
                 <li><router-link  :to="{name:'menuLink'}" class="nav-link">菜单</router-link></li>
                 <li><router-link :to="{name:'adminLink'}" class="nav-link">管理</router-link></li>
                 <li><router-link  :to="{name:'aboutLink'}" class="nav-link">关于我们</router-link></li>
+                <li><router-link  :to="{name:'testLink'}" class="nav-link">测试数据</router-link></li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li><router-link  :to="{name:'loginLink'}" class="nav-link">登录</router-link></li>

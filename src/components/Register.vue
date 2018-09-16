@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -48,7 +49,21 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log("111");
+      //先判断密码是否相等
+      if (this.password === this.confirmPassword) {
+        //如果相等进行传值
+        const formData = {
+          email: this.email,
+          password: this.password,
+          confirmPassword: this.confirmPassword
+        };
+        // 用post方法，第一个是请求地址，第二是传送数据，返回res
+        axios
+          .post("/us.json", formData)
+          .then(res => this.$router.push({ name: "loginLink" }));
+      } else {
+        alert("两次密码输入不一致！");
+      }
     }
   }
 };

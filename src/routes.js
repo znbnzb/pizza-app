@@ -5,6 +5,7 @@ import Admin from './components/Admin'
 import About from './components/about/About'
 import Login from './components/Login'
 import Register from './components/Register'
+import test from './components/test'
 
 // 二级路由
 import Contact from './components/about/Contact'
@@ -35,6 +36,7 @@ export const routes = [
             { path: '/orderingGuide', name: "orderingGuideLink", component: OrderingGuide },
         ]
     },
+    { path: '/test', name: 'testLink', component: test },
     { path: '/login', name: 'loginLink', component: Login },
     { path: '/register', name: 'registerLink', component: Register },
     { path: '*', redirect: '/' }

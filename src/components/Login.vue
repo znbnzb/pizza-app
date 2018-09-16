@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -39,10 +40,34 @@ export default {
     };
   },
   methods: {
-    onSubmit() {}
+    onSubmit() {
+      axios.get("./users.json").then(res => {
+        const data = res.data;
+        const users = [];
+        for (let key in data) {
+          const user = data[key];
+          users.push(user);
+        }
+
+        //实现过滤
+        let result = users.filter(user => {
+          //返回
+          return user.email === this.email && user.password === this.password;
+        });
+
+        //判断result的长度是否大于0
+
+        if (result != null && result.length > 0) {
+          //如果上面的result条件满足会返回一个值，不为空和大于零就是有数据
+          alert("登录成功");
+          this.$router.push({ name: "homeLink" });
+        } else {
+          alert("账号或密码错误");
+        }
+      });
+    }
   }
 };
 </script>
-
 <style scoped>
 </style>
