@@ -56,46 +56,13 @@
 </template>
 
 <script>
+// import axios from "axios";
 export default {
   data() {
     return {
       baskets: [],
       basketText: "您购物车里面没有商品",
-      getMenuItems: {
-        1: {
-          name: "香蕉Pizza",
-          discription: "这是我最喜欢的味道",
-          options: [{ size: 9, price: 38 }, { size: 12, price: 48 }]
-        },
-        2: {
-          name: "芝士pizza",
-          description: "芝士杀手,浓浓的芝士丝, 食欲瞬间爆棚",
-          options: [
-            {
-              size: 9,
-              price: 38
-            },
-            {
-              size: 12,
-              price: 48
-            }
-          ]
-        },
-        3: {
-          name: "夏威夷pizza",
-          description: "众多人的默认选择",
-          options: [
-            {
-              size: 9,
-              price: 36
-            },
-            {
-              size: 12,
-              price: 46
-            }
-          ]
-        }
-      }
+      getMenuItems: {}
     };
   },
   computed: {
@@ -150,6 +117,11 @@ export default {
     removeFromBasket(item) {
       this.baskets.splice(this.baskets.indexOf(item), 1);
     }
+  },
+  created() {
+    this.$http.get("/menu").then(request => {
+      this.getMenuItems = request.data.results;
+    });
   }
 };
 </script>

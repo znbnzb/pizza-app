@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -82,7 +81,7 @@ export default {
       //     .then(res => res.json())
       //     .then(data => this.$router.push({ name: "menuLink" }))
       //     .catch(err => console.log(err));
-      axios
+      this.$htp
         .post("/menu", data)
 
         .then(data => console.log(data));
