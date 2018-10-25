@@ -69,10 +69,15 @@ export default {
           }
         ]
       };
-      this.$http
-        .post("/menu", data)
+      //   this.$http
+      //     .post("/menu", data)
 
-        .then(data => console.log(data));
+      //     .then(data => console.log(data));
+      //数据同步到vuex中
+      this.$http
+        .post("classes/menu", data)
+
+        .then(res => this.$store.commit("pushToMenuItems", data));
     }
   }
 };

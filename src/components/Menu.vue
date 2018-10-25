@@ -61,11 +61,17 @@ export default {
   data() {
     return {
       baskets: [],
-      basketText: "您购物车里面没有商品",
-      getMenuItems: {}
+      basketText: "您购物车里面没有商品"
+      //   getMenuItems: {}
     };
   },
   computed: {
+    getMenuItems() {
+      //在vuex中获取数据
+      // return this.$store.state.menuItems;
+      // 通过getters获取数据
+      return this.$store.getters.getMenuItems;
+    },
     total() {
       let totalCost = 0;
       //循环 菜单
@@ -78,7 +84,21 @@ export default {
       return totalCost;
     }
   },
+  //页面加载前执行函数，拿到数据
+  created() {
+    this.fectDate();
+  },
   methods: {
+    fectDate() {
+      // this.$http.get("/menu").then(request => {
+      // this.getMenuItems = request.data.results;
+      //将请求下来的数据存储到Vuex中
+      this.$http
+        .get("classes/menu")
+        .then(request =>
+          this.$store.commit("setMenuItems", request.data.results)
+        );
+    },
     addToBasket(item, option) {
       let basket = {
         name: item.name,
@@ -117,11 +137,6 @@ export default {
     removeFromBasket(item) {
       this.baskets.splice(this.baskets.indexOf(item), 1);
     }
-  },
-  created() {
-    this.$http.get("/menu").then(request => {
-      this.getMenuItems = request.data.results;
-    });
   }
 };
 </script>

@@ -6,6 +6,14 @@
                     <img src="../assets/icon.png" alt="" class="mx-auto d-block">
                     <form @submit.prevent="onSubmit">
                         <div class="form-group">
+                            <label for="email">用户名</label>
+                            <input 
+                            type="text"
+                            class="form-control"
+                            v-model="username"
+                            >
+                        </div>
+                        <div class="form-group">
                             <label for="email">邮箱</label>
                             <input 
                             type="email"
@@ -38,13 +46,14 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 export default {
   data() {
     return {
-      email: "",
+      username: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
+      email: ""
     };
   },
   methods: {
@@ -53,13 +62,14 @@ export default {
       if (this.password === this.confirmPassword) {
         //如果相等进行传值
         const formData = {
-          email: this.email,
+          username: this.username,
           password: this.password,
-          confirmPassword: this.confirmPassword
+          confirmPassword: this.confirmPassword,
+          email: this.email
         };
         // 用post方法，第一个是请求地址，第二是传送数据，返回res
-        axios
-          .post("/us.json", formData)
+        this.$http
+          .post("users", formData)
           .then(res => this.$router.push({ name: "loginLink" }));
       } else {
         alert("两次密码输入不一致！");

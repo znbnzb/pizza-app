@@ -38,11 +38,20 @@ export default {
   name: "NewPizza",
   data() {
     return {
-      getMenuItems: []
+      // getMenuItems: []
     };
   },
   components: {
     newPizza
+  },
+  computed: {
+    getMenuItems: {
+      //在vuex中获取数据
+      get() {
+        return this.$store.state.menuItems;
+      },
+      set() {}
+    }
   },
   // created() {
   //   fetch("https://wd4660344307vacuxd.wilddogio.com/menu.json")
@@ -62,7 +71,7 @@ export default {
   //     });
   // }
   created() {
-    this.$http.get("/menu").then(res => {
+    this.$http.get("classes/menu").then(res => {
       let data = res.data.results;
 
       let menuArray = [];
@@ -70,16 +79,22 @@ export default {
         data[key].id = key;
         menuArray.push(data[key]);
       }
-      this.getMenuItems = menuArray;
+      //将拿到的ID同步的VUEX中
+      // console.log(menuArray);
+      this.$store.commit("setMenuItems", menuArray);
+      // this.getMenuItems = menuArray;
     });
   },
   methods: {
     deltedData(item) {
       this.$http
-        .delete("/menu/" + item.objectId)
+        .delete("classes/menu/" + item.objectId)
         // .then(res => res.json())
-        .then(data => this.$router.push({ name: "menuLink" }))
-        .catch(err => console.log(err));
+        // .then(data => this.$router.push({ name: "menuLink" }))
+        .then(data => {
+          this.$store.commit("removeMenuItems", item);
+        });
+      // .catch(err => console.log(err));
     }
   }
 };

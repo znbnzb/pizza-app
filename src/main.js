@@ -1,13 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
-import { routes } from './routes'
+import {
+  routes
+} from './routes'
 import axios from 'axios'
-
+import {
+  store
+} from './store/store.js'
 Vue.use(VueRouter)
 
-axios.defaults.baseURL = 'https://api.bmob.cn/1/classes';  //配置全局的默认路径
-axios.defaults.headers.post["Content-type"] = "application"
+//全局引入Vuex,记得实例中要引用
+
+
+axios.defaults.baseURL = 'https://api.bmob.cn/1/'; //配置全局的默认路径
+axios.defaults.headers.post["Content-type"] = "application/json"
 axios.defaults.headers.post["X-Bmob-Application-Id"] = "9aa35c79101ae393a3cae8480f491f40"
 axios.defaults.headers.post["X-Bmob-REST-API-Key"] = "7c3962ad543cdc756e5a3d1ba40be2c3"
 
@@ -21,12 +28,13 @@ axios.defaults.headers.delete["X-Bmob-REST-API-Key"] = "7c3962ad543cdc756e5a3d1b
 Vue.prototype.$http = axios;
 
 const router = new VueRouter({
-    routes,
-    mode: 'history'
+  routes,
+  mode: 'history'
 })
 
 new Vue({
-    el: '#app',
-    router,
-    render: h => h(App)
+  el: '#app',
+  store,
+  router,
+  render: h => h(App)
 })
